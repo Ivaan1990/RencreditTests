@@ -1,0 +1,13 @@
+1. Перейти на ссылку.
+2. Выбрать калькулятор для вкладов - //div[contains(@class, 'service')]/div[contains(text(),'Вклады')]/../..//span[contains(text(),'Калькулятор')]
+3. Проверить, что появился заголовок - "Рассчитать доходность по вкладам" - //*[@class="calculator-block__title block-title"]
+4. Выбрать доллары США - //*[contains(@class, 'calculator__currency-field-btn')]/./../..//span[contains(text(),'Доллары США')]
+5. Сумма вклада – 50 000 - //*[@name="amount"]
+6. Срок – 9 месяцев - //*[@class="jq-selectbox__select"]
+7. Ежемесячное пополнение 1000 - //*[@name="replenish"]
+8. Отметить чекбокс – Ежемесячная капитализация - //*[@name="capitalization"]
+9 Проверить, что автоматически заполнились значения:
+Ставка – 0,75% //*[@class="js-calc-rate"]
+Начислено – 301,42 //*[@class="js-calc-earned"]
+Пополнение за 9 месяцев – 8000 //*[@class="js-calc-replenish"]
+К снятию через 9 месяцев – 58 301,42 //*[@class="js-calc-result"]
