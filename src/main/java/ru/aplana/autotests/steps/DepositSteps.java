@@ -19,7 +19,7 @@ public class DepositSteps {
     Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 10,1000);
     private DepositPage depositPage = new DepositPage();
 
-    @Step("Проверка надписи 'Рассчитайте доходность по вкладу'")
+    @Step("Проверка заголовка страницы 'Рассчитайте доходность по вкладу'")
     public void checkTheTitle(String title){
         Assert.assertEquals("Надпись не совпадает", title, depositPage.title.getText());
     }
