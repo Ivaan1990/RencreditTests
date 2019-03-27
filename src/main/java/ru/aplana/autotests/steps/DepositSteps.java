@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class DepositSteps {
 
     Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 10,1000);
-    DepositPage depositPage = new DepositPage();
+    private DepositPage depositPage = new DepositPage();
 
     @Step("Проверка надписи 'Рассчитайте доходность по вкладу'")
     public void checkTheTitle(String title){
