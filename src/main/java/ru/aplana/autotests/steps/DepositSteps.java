@@ -26,7 +26,7 @@ public class DepositSteps {
 
     @Step("Выбираем валюту вклада")
     public void choiseTheValute(String valute){
-        switch (valute.toLowerCase()){
+        switch (valute.toLowerCase().trim()){
             case "евро":
                 depositPage.valuteUSD.click();
                 break;
