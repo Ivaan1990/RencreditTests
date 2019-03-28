@@ -19,15 +19,16 @@ public class DepositPage extends BasePage {
     @FindBy(xpath = "//*[@name='amount']")
     public WebElement amount;
 
-    @FindBy(xpath = "//*[@class='jq-selectbox__select']")
+    @FindBy(xpath = "//div[@class=\"jq-selectbox__select\"]")
     public WebElement term;
 
-    @FindBy(xpath = "//div[@class='jq-selectbox__dropdown']/ul/li")
-    public List<WebElement> listOfTerms;
-
     @FindBy(xpath = "//*[@name='replenish']")
-    public WebElement evereMonthPay;
+    public WebElement everyMonthPay;
 
     @FindBy (xpath = "//span[contains(text(), 'Ежемесячная капитализация')]/../../span")
     public WebElement everyMonthCapitalization;
+
+    @FindBy (xpath = "//span[contains(text(), 'Частичное снятие')]/../../span//div")
+    public WebElement withdrawalPartial;
+
 }

@@ -1,12 +1,13 @@
 package ru.aplana.autotests.steps;
 
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.aplana.autotests.util.TestProperties;
-
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -19,8 +20,8 @@ public class BaseSteps {
         return driver;
     }
 
-    @BeforeClass
-    public static void setUp(){
+    @Before
+    public void setUp(){
         switch (properties.getProperty("browser")){
             case "firefox":
                 System.setProperty("webdriver.gecko.driver", properties.getProperty("webdriver.gecko.driver"));
@@ -39,17 +40,13 @@ public class BaseSteps {
         driver.get(baseURL);
     }
 
-    @AfterClass
-    public static void setDown(){
-        delay();
-        driver.quit();
-    }
-
-    public static void delay(){
+    @After
+    public void setDown(){
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        driver.quit();
     }
 }

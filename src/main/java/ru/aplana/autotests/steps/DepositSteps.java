@@ -24,44 +24,49 @@ public class DepositSteps {
         Assert.assertEquals("Надпись не совпадает", title, depositPage.title.getText());
     }
 
-    @Step("Выбираем валюту вклада")
+    @Step("Выбираем валюту вклада - {0}")
     public void choiseTheValute(String valute){
         switch (valute.toLowerCase().trim()){
             case "евро":
-                depositPage.valuteUSD.click();
+                depositPage.clickOnElement(depositPage.valuteUSD);
                 break;
             case "рубли":
                 depositPage.valuteRub.click();
                 break;
         }
-
     }
 
-    @Step("Вводим сумму вклада")
+    @Step("Вводим сумму вклада - {0}")
     public void salaryDeposit(String amount){
         depositPage.amount.click();
         depositPage.fillField(depositPage.amount, amount);
         depositPage.scrollPage("//*[@name='amount']");
     }
 
-    @Step("Выбираем срок вклада")
-    public void termDeposit(int term){
-        /*wait.until(ExpectedConditions.visibilityOf(
-                BaseSteps.getDriver().findElement(By.xpath("//*[@class='jq-selectbox__select']"))));*/
-        //depositPage.term.click();
-        for(WebElement element : depositPage.listOfTerms){
-            System.out.println(element.getText());
+    @Step("Выбираем срок вклада - {0}")
+    public void termDeposit(String value){
+        wait.until(ExpectedConditions.elementToBeClickable(depositPage.term));
+        depositPage.term.click();
+        Select select = new Select(BaseSteps.getDriver().findElement(By.xpath("//select[@class=\"calculator__slide-input js-slide-value\"]")));
+        select.selectByVisibleText(value);
+    }
+
+    @Step("Вносим сумму ежемесячного пополнения вклада - {0}")
+    public void everyMonthPayment(String pay){
+        depositPage.everyMonthPay.click();
+        depositPage.fillField(depositPage.everyMonthPay, pay);
+    }
+
+    @Step("Ставим чекбокс на ежемесячной капитализации - {0}")
+    public void checkBoxCapitalization(boolean capitalization){
+        if(capitalization){
+            depositPage.everyMonthCapitalization.click();
         }
     }
-
-    @Step("Вносим сумму ежемесячного пополнения вклада")
-    public void everyMonthPayment(String pay){
-        depositPage.evereMonthPay.click();
-        depositPage.fillField(depositPage.evereMonthPay, pay);
-    }
-
-    @Step("Ставим чекбокс на ежемесячной капитализации")
-    public void checkBoxCapitalizationON(){
-        depositPage.everyMonthCapitalization.click();
+    @Step("Ставим чекбокс на частичное снятие")
+    public void checkBoxPartialDraw(boolean flag){
+        if(flag){
+            depositPage.withdrawalPartial.click();
+        }
     }
 }
