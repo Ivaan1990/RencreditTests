@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DepositSteps {
 
-    Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 10,1000);
+    Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 30,1000);
     private DepositPage depositPage = new DepositPage();
 
     @Step("Проверка заголовка страницы 'Рассчитайте доходность по вкладу'")
@@ -45,8 +45,8 @@ public class DepositSteps {
 
     @Step("Выбираем срок вклада - {0}")
     public void termDeposit(String value){
+        depositPage.clickOnElement(depositPage.term);
         wait.until(ExpectedConditions.elementToBeClickable(depositPage.term));
-        depositPage.term.click();
         Select select = new Select(BaseSteps.getDriver().findElement(By.xpath("//select[@class=\"calculator__slide-input js-slide-value\"]")));
         select.selectByVisibleText(value);
     }
@@ -63,6 +63,7 @@ public class DepositSteps {
             depositPage.everyMonthCapitalization.click();
         }
     }
+
     @Step("Ставим чекбокс на частичное снятие")
     public void checkBoxPartialDraw(boolean flag){
         if(flag){
