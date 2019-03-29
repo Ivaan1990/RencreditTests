@@ -14,7 +14,7 @@ public class BaseTest extends BaseSteps {
     @Parameterized.Parameters
     public static Collection<Object[]> data(){
         return Arrays.asList(new Object[][]{
-                //{"евро", "50000", "9 месяцев","1000", true, false},
+                {"евро", "50000", "9 месяцев","1000", true, false},
                 {"рубли", "2000000","6 месяцев" ,"30000", true, true}
         });
     }
