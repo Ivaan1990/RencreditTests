@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DepositSteps {
 
-    Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 30,1000);
+    private static Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 30,1000);
     private DepositPage depositPage = new DepositPage();
 
     @Step("Проверка заголовка страницы 'Рассчитайте доходность по вкладу'")
@@ -45,9 +45,10 @@ public class DepositSteps {
 
     @Step("Выбираем срок вклада - {0}")
     public void termDeposit(String value){
-        depositPage.clickOnElement(depositPage.term);
+        depositPage.term.click();
         wait.until(ExpectedConditions.elementToBeClickable(depositPage.term));
-        Select select = new Select(BaseSteps.getDriver().findElement(By.xpath("//select[@class=\"calculator__slide-input js-slide-value\"]")));
+        Select select = new Select(BaseSteps.getDriver().findElement(By.xpath("//select[@class='calculator__slide-input js-slide-value']")));
+        wait.until(ExpectedConditions.visibilityOf(BaseSteps.getDriver().findElement(By.xpath("//div[@class=\"jq-selectbox__select\"]"))));
         select.selectByVisibleText(value);
     }
 
@@ -64,10 +65,37 @@ public class DepositSteps {
         }
     }
 
-    @Step("Ставим чекбокс на частичное снятие")
+    @Step("Ставим чекбокс на частичное снятие  - {0}")
     public void checkBoxPartialDraw(boolean flag){
         if(flag){
             depositPage.withdrawalPartial.click();
         }
+    }
+
+    @Step("Проверка автоматически заполненных полей")
+    public void checksTheFields(String valute){
+        String rate, accrual, refill;
+        depositPage.scrollPage("//*[@class=\"calculator-block__title block-title\"]");
+        wait.until(ExpectedConditions.visibilityOf(depositPage.refill));
+
+        switch (valute){
+            case "евро":
+                rate = depositPage.rate.getText().replace("%","");
+                accrual = depositPage.accrual.getText();
+                refill = depositPage.refill.getText().replace(" ","");
+                Assert.assertEquals("Ставка не совпадает с требуемой","0.75", rate);
+                Assert.assertEquals("Сумма начислений не совпадает с требуемой","301,42", accrual);
+                Assert.assertEquals("Сумма пополнение за 6 месяцев не совпадает с требуемой","8000", refill);
+                break;
+            case "рубли":
+                rate = depositPage.rate.getText().replace("%","");
+                accrual = depositPage.accrual.getText();
+                refill = depositPage.refill.getText().replace(" ","");
+                Assert.assertEquals("Ставка не совпадает с требуемой","6.25", rate);
+                Assert.assertEquals("Сумма начислений не совпадает с требуемой","65132,87", accrual);
+                Assert.assertEquals("Сумма пополнение за 6 месяцев не совпадает с требуемой","150000", refill);
+                break;
+        }
+
     }
 }

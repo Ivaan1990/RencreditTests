@@ -14,7 +14,7 @@ public class BaseTest extends BaseSteps {
     @Parameterized.Parameters
     public static Collection<Object[]> data(){
         return Arrays.asList(new Object[][]{
-                {"евро", "50000", "9 месяцев","1000", true, false},
+                //{"евро", "50000", "9 месяцев","1000", true, false},
                 {"рубли", "2000000","6 месяцев" ,"30000", true, true}
         });
     }
@@ -38,7 +38,7 @@ public class BaseTest extends BaseSteps {
     public boolean withdrawalPartial;
 
     @Test
-    @DisplayName("Оформление вклада евро")
+    @DisplayName("Оформление вклада ")
     public void testEUR(){
         MainSteps mainSteps = new MainSteps();
         DepositSteps depositSteps = new DepositSteps();
@@ -50,5 +50,6 @@ public class BaseTest extends BaseSteps {
         depositSteps.everyMonthPayment(everyMonthPay);
         depositSteps.checkBoxCapitalization(capitalization);
         depositSteps.checkBoxPartialDraw(withdrawalPartial);
+        depositSteps.checksTheFields(valute);
     }
 }

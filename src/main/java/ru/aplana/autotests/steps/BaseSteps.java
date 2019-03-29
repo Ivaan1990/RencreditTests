@@ -42,11 +42,6 @@ public class BaseSteps {
 
     @After
     public void setDown(){
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         driver.quit();
     }
 

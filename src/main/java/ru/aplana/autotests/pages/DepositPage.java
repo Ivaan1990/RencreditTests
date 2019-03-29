@@ -31,4 +31,12 @@ public class DepositPage extends BasePage {
     @FindBy (xpath = "//span[contains(text(), 'Частичное снятие')]/../../span//div")
     public WebElement withdrawalPartial;
 
+    @FindBy(xpath = "//div[@class='calculator__dep-percent']//child::span[@class='js-calc-rate']")
+    public WebElement rate;
+
+    @FindBy(xpath = "//*[@class='js-calc-earned']")
+    public WebElement accrual;
+
+    @FindBy(xpath = "//*[@class='js-calc-replenish']")
+    public WebElement refill;
 }
